@@ -32,6 +32,8 @@ public class Sync : MonoBehaviour
 
     bool start_music = false;
 
+    public test_game_time test_Game_Time;
+
     void Awake(){
         Debug.Log("awake");
         Screen.SetResolution(500,500,true);
@@ -62,14 +64,25 @@ public class Sync : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(start_music){
+        if (test_Game_Time.gameTime >= song_position)
+        {
+            Debug.Log(test_Game_Time.gameTime);
+            //Debug.Log(audio.time);
+            text2.text = audio.time.ToString();
+            StartCoroutine(tik(sample_per_tick));
+            song_position += sample_per_tick;
+            Debug.Log(test_Game_Time.gameTime - test_Game_Time.gameTime2);
+            
+        }
+
+        if (start_music){
             
             if(audio.time >= song_position){
-                Debug.Log("tick");
-                //Debug.Log(audio.time);
-                text2.text = audio.time.ToString();
-                StartCoroutine(tik(sample_per_tick));
-                song_position += sample_per_tick;
+                //Debug.Log("tick");
+                
+                //text2.text = audio.time.ToString();
+                //StartCoroutine(tik(sample_per_tick));
+                //song_position += sample_per_tick;
             }
 
             // if(AudioSettings.dspTime - dspsongtime >= song_position){
@@ -81,6 +94,8 @@ public class Sync : MonoBehaviour
             //     StartCoroutine(tik(sample_per_tick));
             //     song_position += sample_per_tick;
             // }
+
+
         }
         
     }
